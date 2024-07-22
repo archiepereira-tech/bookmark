@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+<main>
+
+    {% if alert == 0 %}
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Oh no!</strong> You haven't logged in a bookmark today. Keep on reading!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    {% endif %}
+
+    <div>
+        Currently Reading:
+        <div class="current">
+            <a href="/bookinfo">{{current_title}}</a>
+        </div>
+    </div>
+    <div>
+        Current Page:
+        <div class="current">
+            Page {{current_page}}
+        </div>
+    </div>
+
+    <hr style="color: darkred; height: 3px;">
+
+    <div class="accordion accordion-flush" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" style="background-color: antiquewhite;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              View All Bookmarks for {{current_title}}
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body" style="background-color: antiquewhite;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-start">Page #</th>
+                            <th class="text-end">Date/Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bookmark in current_bookmarks %}
+                            <tr>
+                                <td class="text-start">Page {{ bookmark["page"] }}</td>
+                                <td class="text-end">{{ bookmark["datetime"] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <div>
+        <div class="card" style="width: 18rem; display: inline-block;">
+            <img src="/static/add_image.jpg" class="card-img-top" alt="image" style="border-radius: 25px; height: 150px; object-fit: cover;">
+            <div class="card-body" style="background-color: tan; border-radius: 25px;">
+                <h5 class="card-title">Add a Bookmark</h5>
+                <p class="card-text">Quickly add a bookmark to save your current page.</p>
+                <a href="/add" class="btn btn-primary" style="background-color: darkred; border-color: darkred;">Add</a>
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; display: inline-block;">
+            <img src="/static/remove_image.webp" class="card-img-top" alt="image" style="border-radius: 25px; height: 150px; object-fit: cover;">
+            <div class="card-body" style="background-color: tan;  border-radius: 25px;">
+                <h5 class="card-title">Remove a Bookmark</h5>
+                <p class="card-text">Made a mistake? Get rid of your bookmarks.</p>
+                <a href="/remove" class="btn btn-primary" style="background-color: darkred; border-color: darkred">Remove</a>
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem; display: inline-block;">
+            <img src="/static/history_image.jpg" class="card-img-top" alt="image" style="border-radius: 25px; height: 150px; object-fit: cover;">
+            <div class="card-body" style="background-color: tan;  border-radius: 25px;">
+                <h5 class="card-title">View your History</h5>
+                <p class="card-text">Take a look at all of your past bookmarks and books.</p>
+                <a href="/history" class="btn btn-primary" style="background-color: darkred; border-color: darkred;">View</a>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+
+{% endblock %}

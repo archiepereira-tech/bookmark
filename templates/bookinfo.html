@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Currently Reading
+{% endblock %}
+
+{% block main %}
+
+<main>
+    <div class="current">Currently Reading</div>
+
+    <hr style="color: darkred; height: 3px;">
+
+    <div>
+        <a href="{{info["infolink"]}}" target="_blank"><img src="{{ info["thumbnail"]["thumbnail"] }}" width="200" height="auto" style="border-radius: 12px; box-shadow: 5px 8px #8B0000;"></a>
+    </div>
+
+    <div style="padding-top: 20px;">
+        <strong>{{ info["title"] }}</strong>
+        <div>
+            Written by
+            {% for a in range(info["authors"] | length) %}
+
+            {{ info["authors"][a] }}
+
+            {%- if not loop.last -%}
+                ,
+            {% endif %}
+
+            {% endfor %}
+        </div>
+        <div>
+            {{ info["pagecount"] }} pages
+        </div>
+        <div>
+            Published on {{ info["publishedDate"] }}
+        </div>
+        <div>
+            <strong>Description:</strong>
+            {{ info["description"] }}
+        </div>
+
+    </div>
+
+    <div>
+        <a href="{{info["infolink"]}}" target="_blank">View More of {{ info["title"] }}</a>
+    </div>
+
+</main>
+&nbsp
+&nbsp
+<footer class="mb-5 small text-center text-muted">
+    Data provided by <a href="https://books.google.com/">Google Books</a>
+</footer>
+
+{% endblock %}
